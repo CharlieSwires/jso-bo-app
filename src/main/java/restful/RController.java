@@ -42,7 +42,7 @@ public class RController  {
         
         return new ResponseEntity<Boolean>(service.save(input), HttpStatus.OK);
     }    
-    @PostMapping(path="/print", produces="application/json", consumes="application/json")
+    @PostMapping(path="/print", produces="application/octet-stream", consumes="application/json")
     public synchronized ResponseEntity<Resource> post( @RequestBody RequestBean[] input,HttpServletRequest request) throws IOException, Exception {        
         return downloadFile(service.print(input), request);
     }
