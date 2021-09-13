@@ -211,7 +211,9 @@ return (
 <td><input type="text" defaultValue={this.state.address.workEmail} onChange={this.myChangeHandlerWorkEmail}></input></td></tr>
 <tr><td></td>
 <td></td>
-<td><button align="right" onClick={this.props.closePopup}>Cancel</button> <button align="right" onClick={this.save}>Save</button>  </td>
+<td><button align="right" onClick={this.props.closePopup}>Cancel</button> 
+<button align="right" onClick={this.save} disabled=
+{!this.state.address.firstname || !this.state.address.surname}>Save</button>  </td>
 </tr>
 </tbody></table> 
 </div>  
