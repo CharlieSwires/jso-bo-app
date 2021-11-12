@@ -6,10 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.Writer;
-import java.nio.CharBuffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -23,6 +20,9 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -188,26 +188,15 @@ public class AddressService {
         }
     }
 
-    public ResponseBean1[] getAllArray() {
-        List<MongoBean> mbs = beanRepository.findAll();
+    public ResponseBean1[] getAllArray(int page) {
+        Pageable paging = PageRequest.of(page, 10);
 
-        Collections.sort(mbs, new Comparator<MongoBean>() {
+        Page<MongoBean> mbs = beanRepository.findAll(paging);
 
-            @Override
-            public int compare(MongoBean mb1, MongoBean mb2) {
-                if (mb1 == null || mb2 == null) return 0;
-                String dmb1 = mb1.getSurname() != null ? mb1.getSurname() : "";
-                String dmb2 = mb2.getSurname() != null ? mb2.getSurname() : "";
-                int comp = dmb1.compareToIgnoreCase(dmb2);
-                dmb1 = mb1.getFirstname() != null ? mb1.getFirstname() : "";
-                dmb2 = mb2.getFirstname() != null ? mb2.getFirstname() : "";
-                if (comp == 0) comp = dmb1.compareToIgnoreCase(dmb2);
-                return comp;
-            }
-        });
-        if (mbs == null || mbs.size() == 0) return null;
+ 
+        if (mbs == null || !mbs.hasNext()) return null;
 
-        ResponseBean1[] rbs = new ResponseBean1[mbs.size()];
+        ResponseBean1[] rbs = new ResponseBean1[mbs.getSize()];
         int index = 0;
         
         for (MongoBean mb: mbs) {
