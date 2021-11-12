@@ -194,7 +194,7 @@ public class AddressService {
         Page<MongoBean> mbs = beanRepository.findAll(paging);
 
  
-        if (mbs == null || !mbs.hasNext()) return null;
+        if (mbs == null || mbs.isEmpty()) return null;
 
         ResponseBean1[] rbs = new ResponseBean1[mbs.getSize()];
         int index = 0;
