@@ -53,20 +53,20 @@ public class RController  {
         return new ResponseEntity<Boolean>(service.delete(firstName,lastName), HttpStatus.OK);
     }
     @GetMapping(path="/get/{firstName}/{lastName}", produces="application/json")
-    public ResponseEntity<ResponseBean> get(@PathVariable("firstName") String firstName,
+    public ResponseEntity<ResponseBean1> get(@PathVariable("firstName") String firstName,
             @PathVariable("lastName") String lastName) {
         
-        return new ResponseEntity<ResponseBean>(service.get(firstName,lastName), HttpStatus.OK);
+        return new ResponseEntity<ResponseBean1>(service.get(firstName,lastName), HttpStatus.OK);
     }
     @GetMapping(path="/get/{lastName}", produces="application/json")
-    public ResponseEntity<List<ResponseBean>> getList(@PathVariable("lastName") String lastName) {
+    public ResponseEntity<List<ResponseBean1>> getList(@PathVariable("lastName") String lastName) {
         
-        return new ResponseEntity<List<ResponseBean>>(service.getAll(lastName), HttpStatus.OK);
+        return new ResponseEntity<List<ResponseBean1>>(service.getAll(lastName), HttpStatus.OK);
     }
     @GetMapping(path="/getFirst/{firstname}", produces="application/json")
-    public ResponseEntity<List<ResponseBean>> getListByFirstname(@PathVariable("firstname") String firstname) {
+    public ResponseEntity<List<ResponseBean1>> getListByFirstname(@PathVariable("firstname") String firstname) {
         
-        return new ResponseEntity<List<ResponseBean>>(service.getAllFirstname(firstname), HttpStatus.OK);
+        return new ResponseEntity<List<ResponseBean1>>(service.getAllFirstname(firstname), HttpStatus.OK);
     }
     @GetMapping(path="/getAllCSV", produces="application/json")
     public synchronized ResponseEntity<Resource> getAllCSV(HttpServletRequest request) throws Exception {
@@ -74,8 +74,12 @@ public class RController  {
         return downloadFile("addressbook.csv", request);
     }
     @GetMapping(path="/getAll", produces="application/json")
-    public ResponseEntity<List<ResponseBean>> getAll() throws Exception {
-        return new ResponseEntity<List<ResponseBean>>(service.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<ResponseBean1>> getAll() throws Exception {
+        return new ResponseEntity<List<ResponseBean1>>(service.getAll(), HttpStatus.OK);
+    }
+    @GetMapping(path="/getAllArray", produces="application/json")
+    public ResponseBean1[] getAllArray() throws Exception {
+        return service.getAllArray();
     }
     @GetMapping(path="/loadAll", produces="application/json")
     public synchronized ResponseEntity<Boolean> loadAll() throws Exception {

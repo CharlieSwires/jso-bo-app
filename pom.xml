@@ -87,7 +87,7 @@
                     <archive>
                         <manifest>
                         	<addClasspath>true</addClasspath>
-                            <mainClass>freemarker.MainApp</mainClass>
+                            <mainClass>restful.MainApp</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
