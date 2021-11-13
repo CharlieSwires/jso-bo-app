@@ -61,10 +61,10 @@ public class AddressService {
         return true;
     }
 
-    public ResponseBean1 get(String firstName, String lastName) {
+    public ResponseBean get(String firstName, String lastName) {
         MongoBean mb  = beanRepository.findByFirstnameSurname(firstName,lastName);
         if (mb == null) return null;
-        ResponseBean1 rb = new ResponseBean1();
+        ResponseBean rb = new ResponseBean();
         rb.setAddress(mb.getAddress());
         rb.setFirstname(mb.getFirstname());
         rb.setHomeTel(mb.getHomeTel());
@@ -77,12 +77,12 @@ public class AddressService {
         return rb;
     }
 
-    public List<ResponseBean1> getAll(String lastName) {
+    public List<ResponseBean> getAll(String lastName) {
         List<MongoBean> mbs = beanRepository.findBySurnameOrderByFirstname(lastName);
         if (mbs == null) return null;
-        List<ResponseBean1> rbs = new ArrayList<ResponseBean1>();
+        List<ResponseBean> rbs = new ArrayList<ResponseBean>();
         for (MongoBean mb: mbs) {
-            ResponseBean1 rb = new ResponseBean1();
+            ResponseBean rb = new ResponseBean();
             rb.setAddress(mb.getAddress());
             rb.setFirstname(mb.getFirstname());
             rb.setHomeTel(mb.getHomeTel());
@@ -96,12 +96,12 @@ public class AddressService {
         }
         return rbs;
     }
-    public List<ResponseBean1> getAllFirstname(String firstname) {
+    public List<ResponseBean> getAllFirstname(String firstname) {
         List<MongoBean> mbs = beanRepository.findByFirstnameOrderBySurname(firstname);
         if (mbs == null) return null;
-        List<ResponseBean1> rbs = new ArrayList<ResponseBean1>();
+        List<ResponseBean> rbs = new ArrayList<ResponseBean>();
         for (MongoBean mb: mbs) {
-            ResponseBean1 rb = new ResponseBean1();
+            ResponseBean rb = new ResponseBean();
             rb.setAddress(mb.getAddress());
             rb.setFirstname(mb.getFirstname());
             rb.setHomeTel(mb.getHomeTel());
@@ -188,7 +188,7 @@ public class AddressService {
         }
     }
 
-    public ResponseBean1[] getAllArray(int page) {
+    public ResponseBean[] getAllArray(int page) {
         Pageable paging = PageRequest.of(page, 10);
 
         Page<MongoBean> mbs = beanRepository.findAll(paging);
@@ -196,11 +196,11 @@ public class AddressService {
  
         if (mbs == null || mbs.isEmpty()) return null;
 
-        ResponseBean1[] rbs = new ResponseBean1[mbs.getSize()];
+        ResponseBean[] rbs = new ResponseBean[mbs.getSize()];
         int index = 0;
         
         for (MongoBean mb: mbs) {
-            ResponseBean1 rb = new ResponseBean1();
+            ResponseBean rb = new ResponseBean();
             rb.setAddress(mb.getAddress());
             rb.setFirstname(mb.getFirstname());
             rb.setHomeTel(mb.getHomeTel());
@@ -214,7 +214,7 @@ public class AddressService {
         }
         return rbs;
     }
-    public List<ResponseBean1> getAll() {
+    public List<ResponseBean> getAll() {
         List<MongoBean> mbs = beanRepository.findAll();
 
         Collections.sort(mbs, new Comparator<MongoBean>() {
@@ -232,10 +232,10 @@ public class AddressService {
             }
         });
 
-        List<ResponseBean1> rbs = new ArrayList<ResponseBean1>();
+        List<ResponseBean> rbs = new ArrayList<ResponseBean>();
         if (mbs == null || mbs.size() == 0) return rbs;
         for (MongoBean mb: mbs) {
-            ResponseBean1 rb = new ResponseBean1();
+            ResponseBean rb = new ResponseBean();
             rb.setAddress(mb.getAddress());
             rb.setFirstname(mb.getFirstname());
             rb.setHomeTel(mb.getHomeTel());

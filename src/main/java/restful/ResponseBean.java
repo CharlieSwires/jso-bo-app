@@ -1,7 +1,7 @@
 package restful;
 
-public class ResponseBean1 {
-    public ResponseBean1() {
+public class ResponseBean {
+    public ResponseBean() {
         
     }
     //in the clear
