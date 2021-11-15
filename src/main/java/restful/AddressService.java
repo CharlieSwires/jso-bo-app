@@ -188,7 +188,7 @@ public class AddressService {
         }
     }
 
-    public ResponseBean[] getAllArray(int page) {
+    public ResponseBean2[] getAllArray(int page) {
         Pageable paging = PageRequest.of(page, 10);
 
         Page<MongoBean> mbs = beanRepository.findAll(paging);
@@ -196,11 +196,12 @@ public class AddressService {
  
         if (mbs == null || mbs.isEmpty()) return null;
 
-        ResponseBean[] rbs = new ResponseBean[mbs.getSize()];
+        ResponseBean2[] rbs = new ResponseBean2[mbs.getSize()];
         int index = 0;
         
         for (MongoBean mb: mbs) {
-            ResponseBean rb = new ResponseBean();
+            ResponseBean2 rb = new ResponseBean2();
+            rb.setId(mb.getId());
             rb.setAddress(mb.getAddress());
             rb.setFirstname(mb.getFirstname());
             rb.setHomeTel(mb.getHomeTel());

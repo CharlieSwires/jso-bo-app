@@ -78,7 +78,7 @@ public class RController  {
         return new ResponseEntity<List<ResponseBean>>(service.getAll(), HttpStatus.OK);
     }
     @GetMapping(path="/getAllArray/{page}", produces="application/json")
-    public ResponseBean[] getAllArray(@PathVariable("page") Integer page) throws Exception {
+    public ResponseBean2[] getAllArray(@PathVariable("page") Integer page) throws Exception {
         return service.getAllArray(page);
     }
     @GetMapping(path="/loadAll", produces="application/json")
