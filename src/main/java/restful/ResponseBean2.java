@@ -16,6 +16,7 @@ public class ResponseBean2 {
     private String personalEmail;
     private String workEmail;
     private String id;
+    private String printable;
     public String getTitle() {
         return title;
     }
@@ -76,6 +77,12 @@ public class ResponseBean2 {
     public String getId() {
         return this.id;
         
+    }
+    public String getPrintable() {
+        return printable;
+    }
+    public void setPrintable(String printable) {
+        this.printable = printable;
     }
 
 }

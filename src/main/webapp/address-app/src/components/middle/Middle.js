@@ -20,9 +20,24 @@ class Middle extends Component {
     this.newItem = this.newItem.bind(this);
     this.closeItem = this.closeItem.bind(this);
     this.updateItem = this.updateItem.bind(this);
+    this.isGonnaPrint = this.isGonnaPrint.bind(this);
+    this.updatePrintableItem = this.updatePrintableItem.bind(this);
     this.print = this.print.bind(this);
     this.myChangeHandlero1 = this.myChangeHandlero1.bind(this);
     this.myChangeHandlero2 = this.myChangeHandlero2.bind(this);
+  }
+  
+  isGonnaPrint(listOfEligable) {
+  console.log("isGonnaPrint "+listOfEligable+" "+process.env.REACT_APP_LOGNAME);
+  	if(listOfEligable !== null){
+  	  var parts = listOfEligable.split(",");
+  	  for(var i=0;i<parts.length;i++){
+  	    if(parts[i]===process.env.REACT_APP_LOGNAME){
+  	      return true;
+  	    }
+  	  }
+  	}
+  	return false;
   }
   
   search() {
@@ -102,7 +117,35 @@ class Middle extends Component {
           console.log(error)
         });
       }
+  } 
+updatePrintableItem(forename, surname) {
+    console.log("updatePrintableItem");
+    return function() {
+      // eslint-disable-next-line
+      const testURL = 'http://localhost:8887/address-book/AddressEntry/updatePrintable/' + forename + '/' + surname;
+      console.log("testURL", testURL);
+
+      const myInit = {
+        method: 'GET',
+        // mode: 'no-cors',
+        headers: {
+          'content-type': 'application/json'
+        }
+
+      };
+
+      const myRequest = new Request(testURL, myInit);
+      fetch(myRequest)
+        .then(async response => {
+          const data = await response.json();
+          //this.setState({addresses: data});
+        })
+        .catch(error => {
+          console.log(error)
+        });
+      }
   }
+
   print() {
         console.log("print");
 
@@ -138,7 +181,7 @@ class Middle extends Component {
   updateItem = function(forename,surname) {
     console.log("update");
     return function(){this.setState({showPopup: true, firstname: forename, surname: surname})};
-  }
+  } 
   myChangeHandlero1 = (event) => {
     this.setState({ o1: event.target.value });
     console.log('o1=' + this.state.o1)
@@ -159,10 +202,11 @@ class Middle extends Component {
       "workTel",
       "mobile",
       "personalEmail",
-      "workEmail"];
+      "workEmail",
+      "printable"];
     const headingItems = headings.map((d, index) => <th key={index}>{d}</th>);
 
-    const headingLine = <tr>{headingItems}<th>update</th><th>delete</th></tr>
+    const headingLine = <tr>{headingItems}<th>printable</th><th>update</th><th>delete</th></tr>
     return (
       <div>
         <button onClick={this.newItem}>New</button>
@@ -178,8 +222,17 @@ class Middle extends Component {
             closePopup={this.closeItem} /> :
           <table width="100%">
             <thead>{headingLine}</thead>
-            <tbody>{this.state.addresses.map((d, index) => <tr key={index}><td>{d.title}</td><td>{d.firstname}</td><td>{d.surname}</td><td>{d.address}</td><td>{d.homeTel}</td>
-              <td>{d.workTel}</td><td>{d.mobile}</td><td>{d.personalEmail}</td><td>{d.workEmail}</td>
+            <tbody>{this.state.addresses.map((d, index) => <tr key={index}>
+              <td>{d.title}</td>
+              <td>{d.firstname}</td>
+              <td>{d.surname}</td>
+              <td>{d.address}</td>
+              <td>{d.homeTel}</td>
+              <td>{d.workTel}</td>
+              <td>{d.mobile}</td>
+              <td>{d.personalEmail}</td>
+              <td>{d.workEmail}</td>
+              <td><button onClick={this.updatePrintableItem(d.firstname, d.surname).bind(this)} disabled={!d.address}>{this.isGonnaPrint(d.printable)?'in':'out'}</button></td>
               <td><button onClick={this.updateItem(d.firstname, d.surname).bind(this)}>update</button></td>
               <td><button onClick={this.deleteItem(d.firstname, d.surname)}>delete</button></td>
             </tr>)}</tbody>

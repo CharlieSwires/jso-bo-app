@@ -34,6 +34,7 @@ public class MongoBean {
     private String mobile;
     private String personalEmail;
     private String workEmail;
+    private String printable;
     public String getId() {
         return id;
     }
@@ -95,6 +96,12 @@ public class MongoBean {
     }
     public void setWorkEmail(String workEmail) {
         this.workEmail = (workEmail != null && !workEmail.isEmpty()? Encryption.encrypt(publicKey, workEmail): null);
+    }
+    public String getPrintable() {
+        return printable;
+    }
+    public void setPrintable(String printable) {
+        this.printable = printable;
     }
 
 }

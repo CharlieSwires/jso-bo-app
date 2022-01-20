@@ -15,6 +15,8 @@ public class RequestBean {
     private String mobile;
     private String personalEmail;
     private String workEmail;
+    private String printable;
+
    public String getTitle() {
         return title;
     }
@@ -75,6 +77,12 @@ public class RequestBean {
                 + ", address=" + address + ", homeTel=" + homeTel + ", workTel=" + workTel
                 + ", mobile=" + mobile + ", personalEmail=" + personalEmail + ", workEmail="
                 + workEmail + "]";
+    }
+    public String getPrintable() {
+        return printable;
+    }
+    public void setPrintable(String printable) {
+        this.printable = printable;
     }
 
 }

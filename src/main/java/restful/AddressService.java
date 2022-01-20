@@ -10,10 +10,13 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -50,6 +53,7 @@ public class AddressService {
         mb.setWorkTel(input.getWorkTel());
         mb.setPersonalEmail(input.getPersonalEmail());
         mb.setWorkEmail(input.getWorkEmail());
+        mb.setPrintable(input.getPrintable());
         beanRepository.save(mb);
         return true;
     }
@@ -74,6 +78,7 @@ public class AddressService {
         rb.setWorkTel(mb.getWorkTel());
         rb.setPersonalEmail(mb.getPersonalEmail());
         rb.setWorkEmail(mb.getWorkEmail());
+        rb.setPrintable(mb.getPrintable());
         return rb;
     }
 
@@ -92,6 +97,7 @@ public class AddressService {
             rb.setWorkTel(mb.getWorkTel());
             rb.setPersonalEmail(mb.getPersonalEmail());
             rb.setWorkEmail(mb.getWorkEmail());
+            rb.setPrintable(mb.getPrintable());
             rbs.add(rb);
         }
         return rbs;
@@ -111,6 +117,7 @@ public class AddressService {
             rb.setWorkTel(mb.getWorkTel());
             rb.setPersonalEmail(mb.getPersonalEmail());
             rb.setWorkEmail(mb.getWorkEmail());
+            rb.setPrintable(mb.getPrintable());
             rbs.add(rb);
         }
         return rbs;
@@ -140,7 +147,7 @@ public class AddressService {
 
                 CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
                         .withHeader("Title","Firstname","Surname","Address","HomeTel","WorkTel","Mobile",
-                                "PersonalEmail","WorkEmail"));
+                                "PersonalEmail","WorkEmail","Printable"));
                 ) {
             for(MongoBean mb: mbs) {
                 csvPrinter.printRecord(mb.getTitle(),
@@ -151,7 +158,8 @@ public class AddressService {
                         mb.getWorkTel(),
                         mb.getMobile(),
                         mb.getPersonalEmail(),
-                        mb.getWorkEmail());
+                        mb.getWorkEmail(),
+                        mb.getPrintable());
 
             }
 
@@ -164,7 +172,7 @@ public class AddressService {
                 Reader reader = Files.newBufferedReader(Paths.get("addressbook.csv"));
                 CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
                         .withHeader("Title","Firstname","Surname","Address","HomeTel","WorkTel","Mobile",
-                                "PersonalEmail","WorkEmail")
+                                "PersonalEmail","WorkEmail","Printable")
                         .withIgnoreHeaderCase()
                         .withTrim());
                 ) {
@@ -182,6 +190,8 @@ public class AddressService {
                 mb.setMobile(csvRecord.get("Mobile"));
                 mb.setPersonalEmail(csvRecord.get("PersonalEmail"));
                 mb.setWorkEmail(csvRecord.get("WorkEmail"));
+                mb.setPrintable(csvRecord.get("Printable"));
+                
                 beanRepository.save(mb);
 
             }
@@ -211,6 +221,7 @@ public class AddressService {
             rb.setWorkTel(mb.getWorkTel());
             rb.setPersonalEmail(mb.getPersonalEmail());
             rb.setWorkEmail(mb.getWorkEmail());
+            rb.setPrintable(mb.getPrintable());
             rbs[index++]=rb;
         }
         return rbs;
@@ -246,6 +257,7 @@ public class AddressService {
             rb.setWorkTel(mb.getWorkTel());
             rb.setPersonalEmail(mb.getPersonalEmail());
             rb.setWorkEmail(mb.getWorkEmail());
+            rb.setPrintable(mb.getPrintable());
             rbs.add(rb);
         }
         return rbs;
@@ -269,7 +281,17 @@ public class AddressService {
         ib.setWho(System.getenv("HOSTNAME")+":"+System.getenv("LOGNAME"));
         List<RequestBean> filteredInput = new ArrayList<RequestBean>();
         for(RequestBean item: input) {
-            if(item.getAddress() != null && !item.getAddress().isEmpty()) {
+            String who = System.getenv("LOGNAME");
+            Set<String> set = new HashSet<String>();
+            String parts[] = null;
+            if (item.getPrintable() != null) {
+                parts = item.getPrintable().split(",");
+            }
+            if (parts != null) {
+                set.addAll(Arrays.asList(parts));
+            }
+            if(item.getAddress() != null && !item.getAddress().isEmpty() &&
+                  set.contains(who)) {
                 filteredInput.add(item);
             }
         }
@@ -459,5 +481,47 @@ public class AddressService {
          }
  
         return "result.pdf";
+    }
+    public Boolean getPrintable(String firstName, String lastName) {
+        ResponseBean input = get(firstName, lastName);
+        String who = System.getenv("LOGNAME");
+        Set<String> set = new HashSet<String>();
+        String parts[] = null;
+        if (input.getPrintable() != null) {
+            parts = input.getPrintable().split(",");
+        }
+        if (parts != null) {
+            set.addAll(Arrays.asList(parts));
+        }
+        if (set.contains(who)) {
+            set.remove(who);
+        } else {
+            set.add(who);
+        }
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        
+        for (String item : set) {
+            if(index++ == 0) {
+                sb.append(item);
+            } else {
+                sb.append(",");
+                sb.append(item);
+            }
+        }
+        
+        RequestBean result = new RequestBean();
+        result.setAddress(input.getAddress());
+        result.setFirstname(input.getFirstname());
+        result.setHomeTel(input.getHomeTel());
+        result.setMobile(input.getMobile());
+        result.setPersonalEmail(input.getPersonalEmail());
+        result.setPrintable(sb.length() != 0 ? sb.toString() : null);
+        result.setSurname(input.getSurname());
+        result.setTitle(input.getTitle());
+        result.setWorkEmail(input.getWorkEmail());
+        result.setWorkTel(input.getWorkTel());
+        
+        return this.save(result);
     }
 }

@@ -81,6 +81,11 @@ public class RController  {
     public ResponseBean2[] getAllArray(@PathVariable("page") Integer page) throws Exception {
         return service.getAllArray(page);
     }
+    @GetMapping(path="/updatePrintable/{firstName}/{lastName}", produces="application/json")
+    public Boolean getPrintable(@PathVariable("firstName") String firstName,
+            @PathVariable("lastName") String lastName) throws Exception {
+        return service.getPrintable(firstName, lastName);
+    }
     @GetMapping(path="/loadAll", produces="application/json")
     public synchronized ResponseEntity<Boolean> loadAll() throws Exception {
         service.loadFromCSV();
