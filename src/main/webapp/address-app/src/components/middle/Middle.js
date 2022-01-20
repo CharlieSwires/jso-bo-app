@@ -138,6 +138,8 @@ updatePrintableItem(forename, surname) {
       fetch(myRequest)
         .then(async response => {
           const data = await response.json();
+          window.location.reload(true);
+
           //this.setState({addresses: data});
         })
         .catch(error => {
@@ -206,7 +208,7 @@ updatePrintableItem(forename, surname) {
       "printable"];
     const headingItems = headings.map((d, index) => <th key={index}>{d}</th>);
 
-    const headingLine = <tr>{headingItems}<th>printable</th><th>update</th><th>delete</th></tr>
+    const headingLine = <tr>{headingItems}<th>update</th><th>delete</th></tr>
     return (
       <div>
         <button onClick={this.newItem}>New</button>
