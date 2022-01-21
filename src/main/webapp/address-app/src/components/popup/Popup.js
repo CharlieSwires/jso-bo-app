@@ -14,7 +14,8 @@ class Popup extends React.Component {
           workTel: null,
           mobile: null,
           personalEmail: null,
-          workEmail: null},
+          workEmail: null,
+          printable: null},
         };
         this.search2();
         this.search2 = this.search2.bind(this);
@@ -66,7 +67,8 @@ class Popup extends React.Component {
             workTel: null,
             mobile: null,
             personalEmail: null,
-            workEmail: null},
+            workEmail: null,
+            printable: null},
           });
       }
     }
@@ -90,7 +92,8 @@ class Popup extends React.Component {
             workTel: this.state.address.workTel,
             mobile: this.state.address.mobile,
             personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail
+            workEmail: this.state.address.workEmail,
+            printable: this.state.address.printable
         }});
         console.log('title=' + this.state.address.title)
       }
@@ -103,7 +106,9 @@ class Popup extends React.Component {
             workTel: this.state.address.workTel,
             mobile: this.state.address.mobile,
             personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail }});
+            workEmail: this.state.address.workEmail,
+            printable: this.state.address.printable
+            }});
         console.log('firstname=' + this.state.address.firstname)
       }
       myChangeHandlerSurname = (event) => {
@@ -115,7 +120,9 @@ class Popup extends React.Component {
             workTel: this.state.address.workTel,
             mobile: this.state.address.mobile,
             personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail }});
+            workEmail: this.state.address.workEmail,
+            printable: this.state.address.printable
+           }});
         console.log('surname=' + this.state.address.surname)
       }
       myChangeHandlerAddress = (event) => {
@@ -127,7 +134,9 @@ class Popup extends React.Component {
             workTel: this.state.address.workTel,
             mobile: this.state.address.mobile,
             personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail }});
+            workEmail: this.state.address.workEmail,
+            printable: this.state.address.printable
+            }});
         console.log('address=' + this.state.address.address)
       }
       myChangeHandlerHomeTel = (event) => {
@@ -139,7 +148,9 @@ class Popup extends React.Component {
             workTel: this.state.address.workTel,
             mobile: this.state.address.mobile,
             personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail }});
+            workEmail: this.state.address.workEmail,
+            printable: this.state.address.printable
+            }});
         console.log('homeTel=' + this.state.address.homeTel)
       }
       myChangeHandlerWorkTel = (event) => {
@@ -151,7 +162,9 @@ class Popup extends React.Component {
             workTel: event.target.value,
             mobile: this.state.address.mobile,
             personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail }});
+            workEmail: this.state.address.workEmail,
+            printable: this.state.address.printable
+            }});
         console.log('workTel=' + this.state.address.workTel)
       }
       myChangeHandlerMobile = (event) => {
@@ -163,7 +176,9 @@ class Popup extends React.Component {
             workTel: this.state.address.workTel,
             mobile: event.target.value,
             personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail }});
+            workEmail: this.state.address.workEmail,
+            printable: this.state.address.printable
+            }});
         console.log('mobile=' + this.state.address.mobile)
       }
       myChangeHandlerPersonalEmail = (event) => {
@@ -175,7 +190,9 @@ class Popup extends React.Component {
             workTel: this.state.address.workTel,
             mobile: this.state.address.mobile,
             personalEmail: event.target.value,
-            workEmail: this.state.address.workEmail }});
+            workEmail: this.state.address.workEmail,
+            printable: this.state.address.printable
+            }});
         console.log('personalEmail=' + this.state.address.personalEmail)
       }
       myChangeHandlerWorkEmail = (event) => {
@@ -187,7 +204,9 @@ class Popup extends React.Component {
             workTel: this.state.address.workTel,
             mobile: this.state.address.mobile,
             personalEmail: this.state.address.personalEmail,
-            workEmail: event.target.value }});
+            workEmail: event.target.value,
+            printable: this.state.address.printable
+            }});
         console.log('workEmail=' + this.state.address.workEmail)
       }
                                    
