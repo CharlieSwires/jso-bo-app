@@ -10,6 +10,8 @@ build
 <p>cd address-book/src/main/webapp/address-app</p>
 <p>npm run build</p>
 <p>cd ../../../..</p>
+<p>you'll need an application.properties file with the DB username and password
+URL</p>
 <p>mvn package</p>
 
 <p>produces address-book.war in target</p>
