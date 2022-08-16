@@ -3,7 +3,6 @@ package restful;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
@@ -23,20 +22,18 @@ import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.springframework.stereotype.Service;
 /**
  * Copyright 2021 Charles Swires All Rights Reserved
  * @author charl
  *
  */
-@Service
 public class Encryption {
 
     public static final int PRIVATE = 1;
     public static final int PUBLIC = 0;
 
 
-    public String[] generate (){
+    public static String[] generate (){
 
         try {
 
@@ -46,7 +43,7 @@ public class Encryption {
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA", "BC");
             Base64.Encoder b64 = Base64.getEncoder();
 
-            SecureRandom random = createFixedRandom();
+            SecureRandom random = new SecureRandom();
             generator.initialize(1024, random);
 
             KeyPair pair = generator.generateKeyPair();
@@ -65,57 +62,6 @@ public class Encryption {
 
     }
 
-    public static SecureRandom createFixedRandom()
-    {
-        return new FixedRand();
-    }
-
-    private static class FixedRand extends SecureRandom {
-
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 3601395921206427046L;
-        MessageDigest sha;
-        byte[] state;
-
-        FixedRand() {
-            try
-            {
-                this.sha = MessageDigest.getInstance("SHA-1");
-                this.state = sha.digest();
-            }
-            catch (NoSuchAlgorithmException e)
-            {
-                throw new RuntimeException("can't find SHA-1!");
-            }
-        }
-
-        public void nextBytes(byte[] bytes){
-
-            int    off = 0;
-
-            sha.update(state);
-
-            while (off < bytes.length)
-            {                
-                state = sha.digest();
-
-                if (bytes.length - off > state.length)
-                {
-                    System.arraycopy(state, 0, bytes, off, state.length);
-                }
-                else
-                {
-                    System.arraycopy(state, 0, bytes, off, bytes.length - off);
-                }
-
-                off += state.length;
-
-                sha.update(state);
-            }
-        }
-    }
 
 
     /**
@@ -126,7 +72,7 @@ public class Encryption {
      * @param input
      * @return
      */
-    public String sha256(byte[] salt, String input) {
+    public static String sha256(byte[] salt, String input) {
         Security.addProvider(new BouncyCastleProvider());
 
         Base64.Encoder b64 = Base64.getEncoder();
@@ -160,6 +106,9 @@ public class Encryption {
         digester.doFinal(retValue, 0);
         return b64.encodeToString(retValue);
 
+    }
+    public static String sha1(String bs) {
+        return sha1(bs.getBytes());
     }
 
 
@@ -232,7 +181,7 @@ public class Encryption {
 
 
     public static void main(String [] args) {
-        String [] result = (new Encryption()).generate();
+        String [] result = Encryption.generate();
         System.out.println("Private="+result[Encryption.PRIVATE]);
         System.out.println("Public="+result[Encryption.PUBLIC]);
     }
