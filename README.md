@@ -39,5 +39,5 @@ RESTful
 <p>http://localhost:8887/address-book/AddressEntry/getFirst/{firstname} -- returns list of JSON</p>
 <p>http://localhost:8887/address-book/AddressEntry/getAllCSV -- returns CSV file</p>
 <p>http://localhost:8887/address-book/AddressEntry/getAll -- returns list of JSON</p>
-<p>http://localhost:8887/address-book/AddressEntry/loadAll</p>
+<p>http://localhost:8887/address-book/AddressEntry/loadAll -- loads db from addressbook.csv</p>
 
