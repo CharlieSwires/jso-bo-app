@@ -17,7 +17,7 @@ URL</p>
 <p>produces address-book.war in target</p>
 
 <p>7zip address-book.war</p>
-<p>remove the address-book/node-nodules</p>
+<p>remove the address-app/node-nodules</p>
 
 deploy
 ------
