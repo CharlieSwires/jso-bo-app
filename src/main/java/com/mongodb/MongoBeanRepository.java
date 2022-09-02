@@ -17,7 +17,7 @@ public interface MongoBeanRepository extends MongoRepository<MongoBean, String>{
     public List<MongoBean> findAll();
     public Page<MongoBean> findAll(Pageable pageable);
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public MongoBean save(MongoBean entity);
 	
     public Optional<MongoBean> findById(String id);
@@ -26,7 +26,7 @@ public interface MongoBeanRepository extends MongoRepository<MongoBean, String>{
 ////	@Query("{ 'firstname' : ?0, 'surname' : ?1 }")
 //	public void deleteByFirstnameSurname(String firstname, String surname);
 	
-    @Query("{ 'firstname' : ?0, 'surname' : ?1 }")
+    @Query("{ firstname : ?0, surname : ?1 }")
     public MongoBean findByFirstnameSurname(String firstname, String surname);
     public List<MongoBean> findBySurnameOrderByFirstname(String surname);
 

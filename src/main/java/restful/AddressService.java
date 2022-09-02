@@ -65,7 +65,7 @@ public class AddressService {
         return true;
     }
 
-    public ResponseBean get(String firstName, String lastName) {
+    public List<ResponseBean> get(String firstName, String lastName) {
         MongoBean mb  = beanRepository.findByFirstnameSurname(firstName,lastName);
         if (mb == null) return null;
         ResponseBean rb = new ResponseBean();
@@ -79,7 +79,9 @@ public class AddressService {
         rb.setPersonalEmail(mb.getPersonalEmail());
         rb.setWorkEmail(mb.getWorkEmail());
         rb.setPrintable(mb.getPrintable());
-        return rb;
+        List<ResponseBean> rbs = new ArrayList<ResponseBean>();
+        rbs.add(rb);
+        return rbs;
     }
 
     public List<ResponseBean> getAll(String lastName) {
@@ -483,7 +485,7 @@ public class AddressService {
         return "result.pdf";
     }
     public Boolean getPrintable(String firstName, String lastName) {
-        ResponseBean input = get(firstName, lastName);
+        ResponseBean input = get(firstName, lastName).get(0);
         String who = System.getenv("LOGNAME");
         Set<String> set = new HashSet<String>();
         String parts[] = null;

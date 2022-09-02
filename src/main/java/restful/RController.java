@@ -53,10 +53,10 @@ public class RController  {
         return new ResponseEntity<Boolean>(service.delete(firstName,lastName), HttpStatus.OK);
     }
     @GetMapping(path="/get/{firstName}/{lastName}", produces="application/json")
-    public ResponseEntity<ResponseBean> get(@PathVariable("firstName") String firstName,
+    public ResponseEntity<List<ResponseBean>> get(@PathVariable("firstName") String firstName,
             @PathVariable("lastName") String lastName) {
         
-        return new ResponseEntity<ResponseBean>(service.get(firstName,lastName), HttpStatus.OK);
+        return new ResponseEntity<List<ResponseBean>>(service.get(firstName,lastName), HttpStatus.OK);
     }
     @GetMapping(path="/get/{lastName}", produces="application/json")
     public ResponseEntity<List<ResponseBean>> getList(@PathVariable("lastName") String lastName) {
