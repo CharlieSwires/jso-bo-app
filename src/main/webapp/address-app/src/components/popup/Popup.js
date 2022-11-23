@@ -6,7 +6,7 @@ class Popup extends React.Component {
         super(props2);
         this.state =
         {
-          address: {title: null,
+          address: [{title: null,
           firstname: null,
           surname: null,
           address: null,
@@ -15,7 +15,7 @@ class Popup extends React.Component {
           mobile: null,
           personalEmail: null,
           workEmail: null,
-          printable: null},
+          printable: null}],
         };
         this.search2();
         this.search2 = this.search2.bind(this);
@@ -59,7 +59,7 @@ class Popup extends React.Component {
           });
       } else {
           this.setState({
-            address: {title: null,
+            address: [{title: null,
             firstname: null,
             surname: null,
             address: null,
@@ -68,7 +68,7 @@ class Popup extends React.Component {
             mobile: null,
             personalEmail: null,
             workEmail: null,
-            printable: null},
+            printable: null}],
           });
       }
     }
@@ -77,137 +77,137 @@ class Popup extends React.Component {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.state.address)
+            body: JSON.stringify(this.state.address[0])
         };
         fetch('http://localhost:8887/address-book/AddressEntry/add', requestOptions)
             .then(response => response.json())
             .then(dummy => { alert("File Saved");});
     }
     myChangeHandlerTitle = (event) => {
-        this.setState({address:{ title: event.target.value,
-            firstname: this.state.address.firstname,
-            surname: this.state.address.surname,
-            address: this.state.address.address,
-            homeTel: this.state.address.homeTel,
-            workTel: this.state.address.workTel,
-            mobile: this.state.address.mobile,
-            personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail,
-            printable: this.state.address.printable
-        }});
-        console.log('title=' + this.state.address.title)
+        this.setState({address:[{ title: event.target.value,
+            firstname: this.state.address[0].firstname,
+            surname: this.state.address[0].surname,
+            address: this.state.address[0].address,
+            homeTel: this.state.address[0].homeTel,
+            workTel: this.state.address[0].workTel,
+            mobile: this.state.address[0].mobile,
+            personalEmail: this.state.address[0].personalEmail,
+            workEmail: this.state.address[0].workEmail,
+            printable: this.state.address[0].printable
+        }]});
+        console.log('title=' + this.state.address[0].title)
       }
       myChangeHandlerFirstname = (event) => {
-        this.setState({address:{ title: this.state.address.title,
+        this.setState({address:[{ title: this.state.address.title,
             firstname: event.target.value,
-            surname: this.state.address.surname,
-            address: this.state.address.address,
-            homeTel: this.state.address.homeTel,
-            workTel: this.state.address.workTel,
-            mobile: this.state.address.mobile,
-            personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail,
-            printable: this.state.address.printable
-            }});
-        console.log('firstname=' + this.state.address.firstname)
+            surname: this.state.address[0].surname,
+            address: this.state.address[0].address,
+            homeTel: this.state.address[0].homeTel,
+            workTel: this.state.address[0].workTel,
+            mobile: this.state.address[0].mobile,
+            personalEmail: this.state.address[0].personalEmail,
+            workEmail: this.state.address[0].workEmail,
+            printable: this.state.address[0].printable
+            }]});
+        console.log('firstname=' + this.state.address[0].firstname)
       }
       myChangeHandlerSurname = (event) => {
-        this.setState({address:{title: this.state.address.title,
-            firstname: this.state.address.firstname,
+        this.setState({address:[{title: this.state.address[0].title,
+            firstname: this.state.address[0].firstname,
             surname: event.target.value,
-            address: this.state.address.address,
-            homeTel: this.state.address.homeTel,
-            workTel: this.state.address.workTel,
-            mobile: this.state.address.mobile,
-            personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail,
-            printable: this.state.address.printable
-           }});
-        console.log('surname=' + this.state.address.surname)
+            address: this.state.address[0].address,
+            homeTel: this.state.address[0].homeTel,
+            workTel: this.state.address[0].workTel,
+            mobile: this.state.address[0].mobile,
+            personalEmail: this.state.address[0].personalEmail,
+            workEmail: this.state.address[0].workEmail,
+            printable: this.state.address[0].printable
+           }]});
+        console.log('surname=' + this.state.address[0].surname)
       }
       myChangeHandlerAddress = (event) => {
-        this.setState({address:{title: this.state.address.title,
-            firstname: this.state.address.firstname,
-            surname: this.state.address.surname,
+        this.setState({address:[{title: this.state.address[0].title,
+            firstname: this.state.address[0].firstname,
+            surname: this.state.address[0].surname,
             address: event.target.value,
-            homeTel: this.state.address.homeTel,
-            workTel: this.state.address.workTel,
-            mobile: this.state.address.mobile,
-            personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail,
-            printable: this.state.address.printable
-            }});
-        console.log('address=' + this.state.address.address)
+            homeTel: this.state.address[0].homeTel,
+            workTel: this.state.address[0].workTel,
+            mobile: this.state.address[0].mobile,
+            personalEmail: this.state.address[0].personalEmail,
+            workEmail: this.state.address[0].workEmail,
+            printable: this.state.address[0].printable
+            }]});
+        console.log('address=' + this.state.address[0].address)
       }
       myChangeHandlerHomeTel = (event) => {
-        this.setState({address:{ title: this.state.address.title,
-            firstname: this.state.address.firstname,
-            surname: this.state.address.surname,
-            address: this.state.address.address,
+        this.setState({address:[{ title: this.state.address[0].title,
+            firstname: this.state.address[0].firstname,
+            surname: this.state.address[0].surname,
+            address: this.state.address[0].address,
             homeTel: event.target.value,
-            workTel: this.state.address.workTel,
-            mobile: this.state.address.mobile,
-            personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail,
-            printable: this.state.address.printable
-            }});
-        console.log('homeTel=' + this.state.address.homeTel)
+            workTel: this.state.address[0].workTel,
+            mobile: this.state.address[0].mobile,
+            personalEmail: this.state.address[0].personalEmail,
+            workEmail: this.state.address[0].workEmail,
+            printable: this.state.address[0].printable
+            }]});
+        console.log('homeTel=' + this.state.address[0].homeTel)
       }
       myChangeHandlerWorkTel = (event) => {
-        this.setState({address:{title: this.state.address.title,
-            firstname: this.state.address.firstname,
-            surname: this.state.address.surname,
-            address: this.state.address.address,
-            homeTel: this.state.address.homeTel,
+        this.setState({address:[{title: this.state.address[0].title,
+            firstname: this.state.address[0].firstname,
+            surname: this.state.address[0].surname,
+            address: this.state.address[0].address,
+            homeTel: this.state.address[0].homeTel,
             workTel: event.target.value,
-            mobile: this.state.address.mobile,
-            personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail,
-            printable: this.state.address.printable
-            }});
-        console.log('workTel=' + this.state.address.workTel)
+            mobile: this.state.address[0].mobile,
+            personalEmail: this.state.address[0].personalEmail,
+            workEmail: this.state.address[0].workEmail,
+            printable: this.state.address[0].printable
+            }]});
+        console.log('workTel=' + this.state.address[0].workTel)
       }
       myChangeHandlerMobile = (event) => {
-        this.setState({address:{title: this.state.address.title,
-            firstname: this.state.address.firstname,
-            surname: this.state.address.surname,
-            address: this.state.address.address,
-            homeTel: this.state.address.homeTel,
-            workTel: this.state.address.workTel,
+        this.setState({address:[{title: this.state.address[0].title,
+            firstname: this.state.address[0].firstname,
+            surname: this.state.address[0].surname,
+            address: this.state.address[0].address,
+            homeTel: this.state.address[0].homeTel,
+            workTel: this.state.address[0].workTel,
             mobile: event.target.value,
-            personalEmail: this.state.address.personalEmail,
-            workEmail: this.state.address.workEmail,
-            printable: this.state.address.printable
-            }});
-        console.log('mobile=' + this.state.address.mobile)
+            personalEmail: this.state.address[0].personalEmail,
+            workEmail: this.state.address[0].workEmail,
+            printable: this.state.address[0].printable
+            }]});
+        console.log('mobile=' + this.state.address[0].mobile)
       }
       myChangeHandlerPersonalEmail = (event) => {
-        this.setState({address:{title: this.state.address.title,
-            firstname: this.state.address.firstname,
-            surname: this.state.address.surname,
-            address: this.state.address.address,
-            homeTel: this.state.address.homeTel,
-            workTel: this.state.address.workTel,
-            mobile: this.state.address.mobile,
+        this.setState({address:[{title: this.state.address[0].title,
+            firstname: this.state.address[0].firstname,
+            surname: this.state.address[0].surname,
+            address: this.state.address[0].address,
+            homeTel: this.state.address[0].homeTel,
+            workTel: this.state.address[0].workTel,
+            mobile: this.state.address[0].mobile,
             personalEmail: event.target.value,
-            workEmail: this.state.address.workEmail,
-            printable: this.state.address.printable
-            }});
-        console.log('personalEmail=' + this.state.address.personalEmail)
+            workEmail: this.state.address[0].workEmail,
+            printable: this.state.address[0].printable
+            }]});
+        console.log('personalEmail=' + this.state.address[0].personalEmail)
       }
       myChangeHandlerWorkEmail = (event) => {
-        this.setState({address:{title: this.state.address.title,
-            firstname: this.state.address.firstname,
-            surname: this.state.address.surname,
-            address: this.state.address.address,
-            homeTel: this.state.address.homeTel,
-            workTel: this.state.address.workTel,
-            mobile: this.state.address.mobile,
-            personalEmail: this.state.address.personalEmail,
+        this.setState({address:[{title: this.state.address[0].title,
+            firstname: this.state.address[0].firstname,
+            surname: this.state.address[0].surname,
+            address: this.state.address[0].address,
+            homeTel: this.state.address[0].homeTel,
+            workTel: this.state.address[0].workTel,
+            mobile: this.state.address[0].mobile,
+            personalEmail: this.state.address[0].personalEmail,
             workEmail: event.target.value,
-            printable: this.state.address.printable
-            }});
-        console.log('workEmail=' + this.state.address.workEmail)
+            printable: this.state.address[0].printable
+            }]});
+        console.log('workEmail=' + this.state.address[0].workEmail)
       }
                                    
   render() {  
@@ -216,23 +216,23 @@ return (
 <div align="center" className='popup\_inner'>  
 <h1>{this.props.text}</h1>  
 <table border="2px" width="50%"><thead><tr><th>Title</th><th>Firstname</th><th>Surname</th></tr></thead>
-<tbody><tr><td><input type="text" defaultValue={this.state.address.title} onChange={this.myChangeHandlerTitle}></input></td>
-<td><input type="text" defaultValue={this.state.address.firstname} onChange={this.myChangeHandlerFirstname}></input></td>
-<td><input type="text" defaultValue={this.state.address.surname} onChange={this.myChangeHandlerSurname}></input></td></tr>
+<tbody><tr><td><input type="text" defaultValue={this.state.address[0].title} onChange={this.myChangeHandlerTitle}></input></td>
+<td><input type="text" defaultValue={this.state.address[0].firstname} onChange={this.myChangeHandlerFirstname}></input></td>
+<td><input type="text" defaultValue={this.state.address[0].surname} onChange={this.myChangeHandlerSurname}></input></td></tr>
 <tr><th colSpan="3">Address</th></tr>
-<tr><td width="100%" colSpan="3"><input size="100" type="text" defaultValue={this.state.address.address} onChange={this.myChangeHandlerAddress}></input></td></tr>
+<tr><td width="100%" colSpan="3"><input size="100" type="text" defaultValue={this.state.address[0].address} onChange={this.myChangeHandlerAddress}></input></td></tr>
 <tr><th>HomeTel</th><th>WorkTel</th><th>Mobile</th></tr>
-<tr><td><input type="text" defaultValue={this.state.address.homeTel} onChange={this.myChangeHandlerHomeTel}></input></td>
-<td><input type="text" defaultValue={this.state.address.workTel} onChange={this.myChangeHandlerWorkTel}></input></td>
-<td><input type="text" defaultValue={this.state.address.mobile} onChange={this.myChangeHandlerMobile}></input></td></tr>
+<tr><td><input type="text" defaultValue={this.state.address[0].homeTel} onChange={this.myChangeHandlerHomeTel}></input></td>
+<td><input type="text" defaultValue={this.state.address[0].workTel} onChange={this.myChangeHandlerWorkTel}></input></td>
+<td><input type="text" defaultValue={this.state.address[0].mobile} onChange={this.myChangeHandlerMobile}></input></td></tr>
 <tr><th align="center" colSpan="2">PersonalEmail</th><th>WorkEmail</th></tr>
-<tr><td align="center" colSpan="2"><input type="text" defaultValue={this.state.address.personalEmail} onChange={this.myChangeHandlerPersonalEmail}></input></td>
-<td><input type="text" defaultValue={this.state.address.workEmail} onChange={this.myChangeHandlerWorkEmail}></input></td></tr>
+<tr><td align="center" colSpan="2"><input type="text" defaultValue={this.state.address[0].personalEmail} onChange={this.myChangeHandlerPersonalEmail}></input></td>
+<td><input type="text" defaultValue={this.state.address[0].workEmail} onChange={this.myChangeHandlerWorkEmail}></input></td></tr>
 <tr><td></td>
 <td></td>
 <td><button align="right" onClick={this.props.closePopup}>Cancel</button> 
 <button align="right" onClick={this.save} disabled=
-{!this.state.address.firstname || !this.state.address.surname}>Save</button>  </td>
+{!this.state.address[0].firstname || !this.state.address[0].surname}>Save</button>  </td>
 </tr>
 </tbody></table> 
 </div>  
