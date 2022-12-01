@@ -265,6 +265,7 @@ public class AddressService {
         return rbs;
     }
 
+    private static final int ADDRESSES_PER_PAGE = 21;
     public String print(RequestBean[] input) throws IOException {
         assert(input != null);
         InputBeanGeneral2 ib = new InputBeanGeneral2();
@@ -297,13 +298,13 @@ public class AddressService {
                 filteredInput.add(item);
             }
         }
-
-        ArrayOfItems[] ai = new ArrayOfItems[(filteredInput.size() / 15) + (filteredInput.size() % 15 != 0 ? 1 :0)];
+        
+        ArrayOfItems[] ai = new ArrayOfItems[(filteredInput.size() / ADDRESSES_PER_PAGE) + (filteredInput.size() % ADDRESSES_PER_PAGE != 0 ? 1 :0)];
         sb = new StringBuilder();
         for (int i = 0; i < filteredInput.size(); i++) {
             String[] rows = filteredInput.get(i).getAddress().split(",");
             RequestBean item = filteredInput.get(i);
-            switch(i%15) {
+            switch(i%ADDRESSES_PER_PAGE) {
             case 0:
                 sb.append("addr1row1,"+item.getTitle()+" "+item.getFirstname()+" "+item.getSurname()+"\n");
                 sb.append("addr1row2,"+(rows.length > 0? rows[0].trim():"")+"\n");
@@ -452,19 +453,79 @@ public class AddressService {
                 sb.append("addr15row6,"+(rows.length > 4? rows[4].trim():"")+"\n");
                 sb.append("addr15row7,"+(rows.length > 5? rows[5].trim():"")+"\n");
                 break;
+                
+            case 15:
+                sb.append("addr16row1,"+item.getTitle()+" "+item.getFirstname()+" "+item.getSurname()+"\n");
+                sb.append("addr16row2,"+(rows.length > 0? rows[0].trim():"")+"\n");
+                sb.append("addr16row3,"+(rows.length > 1? rows[1].trim():"")+"\n");
+                sb.append("addr16row4,"+(rows.length > 2? rows[2].trim():"")+"\n");
+                sb.append("addr16row5,"+(rows.length > 3? rows[3].trim():"")+"\n");
+                sb.append("addr16row6,"+(rows.length > 4? rows[4].trim():"")+"\n");
+                sb.append("addr16row7,"+(rows.length > 5? rows[5].trim():"")+"\n");
+                break;
+                
+            case 16:
+                sb.append("addr17row1,"+item.getTitle()+" "+item.getFirstname()+" "+item.getSurname()+"\n");
+                sb.append("addr17row2,"+(rows.length > 0? rows[0].trim():"")+"\n");
+                sb.append("addr17row3,"+(rows.length > 1? rows[1].trim():"")+"\n");
+                sb.append("addr17row4,"+(rows.length > 2? rows[2].trim():"")+"\n");
+                sb.append("addr17row5,"+(rows.length > 3? rows[3].trim():"")+"\n");
+                sb.append("addr17row6,"+(rows.length > 4? rows[4].trim():"")+"\n");
+                sb.append("addr17row7,"+(rows.length > 5? rows[5].trim():"")+"\n");
+                break;
+
+            case 17:
+                sb.append("addr18row1,"+item.getTitle()+" "+item.getFirstname()+" "+item.getSurname()+"\n");
+                sb.append("addr18row2,"+(rows.length > 0? rows[0].trim():"")+"\n");
+                sb.append("addr18row3,"+(rows.length > 1? rows[1].trim():"")+"\n");
+                sb.append("addr18row4,"+(rows.length > 2? rows[2].trim():"")+"\n");
+                sb.append("addr18row5,"+(rows.length > 3? rows[3].trim():"")+"\n");
+                sb.append("addr18row6,"+(rows.length > 4? rows[4].trim():"")+"\n");
+                sb.append("addr18row7,"+(rows.length > 5? rows[5].trim():"")+"\n");
+                break;
+
+            case 18:
+                sb.append("addr19row1,"+item.getTitle()+" "+item.getFirstname()+" "+item.getSurname()+"\n");
+                sb.append("addr19row2,"+(rows.length > 0? rows[0].trim():"")+"\n");
+                sb.append("addr19row3,"+(rows.length > 1? rows[1].trim():"")+"\n");
+                sb.append("addr19row4,"+(rows.length > 2? rows[2].trim():"")+"\n");
+                sb.append("addr19row5,"+(rows.length > 3? rows[3].trim():"")+"\n");
+                sb.append("addr19row6,"+(rows.length > 4? rows[4].trim():"")+"\n");
+                sb.append("addr19row7,"+(rows.length > 5? rows[5].trim():"")+"\n");
+                break;
+
+            case 19:
+                sb.append("addr20row1,"+item.getTitle()+" "+item.getFirstname()+" "+item.getSurname()+"\n");
+                sb.append("addr20row2,"+(rows.length > 0? rows[0].trim():"")+"\n");
+                sb.append("addr20row3,"+(rows.length > 1? rows[1].trim():"")+"\n");
+                sb.append("addr20row4,"+(rows.length > 2? rows[2].trim():"")+"\n");
+                sb.append("addr20row5,"+(rows.length > 3? rows[3].trim():"")+"\n");
+                sb.append("addr20row6,"+(rows.length > 4? rows[4].trim():"")+"\n");
+                sb.append("addr20row7,"+(rows.length > 5? rows[5].trim():"")+"\n");
+                break;
+
+            case 20:
+                sb.append("addr21row1,"+item.getTitle()+" "+item.getFirstname()+" "+item.getSurname()+"\n");
+                sb.append("addr21row2,"+(rows.length > 0? rows[0].trim():"")+"\n");
+                sb.append("addr21row3,"+(rows.length > 1? rows[1].trim():"")+"\n");
+                sb.append("addr21row4,"+(rows.length > 2? rows[2].trim():"")+"\n");
+                sb.append("addr21row5,"+(rows.length > 3? rows[3].trim():"")+"\n");
+                sb.append("addr21row6,"+(rows.length > 4? rows[4].trim():"")+"\n");
+                sb.append("addr21row7,"+(rows.length > 5? rows[5].trim():"")+"\n");
+                break;
 
             }
-            if (i % 15 == 14) {
+            if (i % ADDRESSES_PER_PAGE == (ADDRESSES_PER_PAGE - 1)) {
                 ArrayOfItems item2 = new ArrayOfItems();
                 item2.setInputCSV(sb.toString());
                 item2.setFindingsText(null);
-                ai[i/15] = item2;
+                ai[i/ADDRESSES_PER_PAGE] = item2;
                 sb = new StringBuilder();
             } else if (i == (filteredInput.size() -1)) {
                 ArrayOfItems item2 = new ArrayOfItems();
                 item2.setInputCSV(sb.toString());
                 item2.setFindingsText(null); 
-                ai[i/15] = item2;
+                ai[i/ADDRESSES_PER_PAGE] = item2;
                 sb = new StringBuilder();
             }
         }
