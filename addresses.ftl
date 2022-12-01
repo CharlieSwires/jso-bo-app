@@ -312,31 +312,6 @@
   <td><#if addr20row7??>${addr20row7}<#else>null</#if></td>
   <td><#if addr21row7??>${addr21row7}<#else>null</#if></td>
  </tr>
- <tr>
-  <td></td>
-  <td></td>
-  <td></td>
- </tr>
-  <tr>
-  <td></td>
-  <td></td>
-  <td></td>
- </tr>
- <tr>
-  <td></td>
-  <td></td>
-  <td></td>
- </tr>
- <tr>
-  <td></td>
-  <td></td>
-  <td></td>
- </tr>
- <tr>
-  <td></td>
-  <td></td>
-  <td></td>
- </tr>
  </table>
  <br/>
- 
+ <br/>
