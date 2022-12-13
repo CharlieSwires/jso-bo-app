@@ -140,9 +140,9 @@ public class AddressService {
                 return comp;
             }
         });
-//        ProcessBuilder builder = new ProcessBuilder();
-//        builder.command("sh", "-c", "rm *.csv");
-//        Process process = builder.start();
+        //        ProcessBuilder builder = new ProcessBuilder();
+        //        builder.command("sh", "-c", "rm *.csv");
+        //        Process process = builder.start();
 
         try (
                 BufferedWriter writer = Files.newBufferedWriter(Paths.get("addressbook.csv"));
@@ -193,7 +193,7 @@ public class AddressService {
                 mb.setPersonalEmail(csvRecord.get("PersonalEmail"));
                 mb.setWorkEmail(csvRecord.get("WorkEmail"));
                 mb.setPrintable(csvRecord.get("Printable"));
-                
+
                 beanRepository.save(mb);
 
             }
@@ -205,12 +205,12 @@ public class AddressService {
 
         Page<MongoBean> mbs = beanRepository.findAll(paging);
 
- 
+
         if (mbs == null || mbs.isEmpty()) return null;
 
         ResponseBean2[] rbs = new ResponseBean2[mbs.getSize()];
         int index = 0;
-        
+
         for (MongoBean mb: mbs) {
             ResponseBean2 rb = new ResponseBean2();
             rb.setId(mb.getId());
@@ -280,7 +280,7 @@ public class AddressService {
         fileReader.close();
 
         ib.setBodyFTL(sb.toString());
- 
+
         ib.setWho(System.getenv("HOSTNAME")+":"+System.getenv("LOGNAME"));
         List<RequestBean> filteredInput = new ArrayList<RequestBean>();
         for(RequestBean item: input) {
@@ -294,11 +294,11 @@ public class AddressService {
                 set.addAll(Arrays.asList(parts));
             }
             if(item.getAddress() != null && !item.getAddress().isEmpty() &&
-                  set.contains(who)) {
+                    set.contains(who)) {
                 filteredInput.add(item);
             }
         }
-        
+
         ArrayOfItems[] ai = new ArrayOfItems[(filteredInput.size() / ADDRESSES_PER_PAGE) + (filteredInput.size() % ADDRESSES_PER_PAGE != 0 ? 1 :0)];
         sb = new StringBuilder();
         for (int i = 0; i < filteredInput.size(); i++) {
@@ -453,7 +453,7 @@ public class AddressService {
                 sb.append("addr15row6,"+(rows.length > 4? rows[4].trim():"")+"\n");
                 sb.append("addr15row7,"+(rows.length > 5? rows[5].trim():"")+"\n");
                 break;
-                
+
             case 15:
                 sb.append("addr16row1,"+item.getTitle()+" "+item.getFirstname()+" "+item.getSurname()+"\n");
                 sb.append("addr16row2,"+(rows.length > 0? rows[0].trim():"")+"\n");
@@ -463,7 +463,7 @@ public class AddressService {
                 sb.append("addr16row6,"+(rows.length > 4? rows[4].trim():"")+"\n");
                 sb.append("addr16row7,"+(rows.length > 5? rows[5].trim():"")+"\n");
                 break;
-                
+
             case 16:
                 sb.append("addr17row1,"+item.getTitle()+" "+item.getFirstname()+" "+item.getSurname()+"\n");
                 sb.append("addr17row2,"+(rows.length > 0? rows[0].trim():"")+"\n");
@@ -530,20 +530,31 @@ public class AddressService {
             }
         }
         ib.setArrayOfItems(ai);
-  
-        ProcessBuilder builder = new ProcessBuilder();
-        builder.command("sh", "-c", "rm *.pdf");
-        Process process = builder.start();
-
+        if (System.getenv("OVERRIDE_WITH_HTML") != null && System.getenv("OVERRIDE_WITH_HTML").equals("true")) {
+            ProcessBuilder builder = new ProcessBuilder();
+            builder.command("sh", "-c", "rm *.html");
+            Process process = builder.start();
+        } else {
+            ProcessBuilder builder = new ProcessBuilder();
+            builder.command("sh", "-c", "rm *.pdf");
+            Process process = builder.start();
+        }
         final String uri = "http://container1:8080/freemarker/generalArrayToPDF";
         RestTemplate restTemplate = new RestTemplate(); 
         ReturnBean result = restTemplate.postForObject( uri, ib, ReturnBean.class);
         Base64.Decoder b64d = Base64.getDecoder();
-        try (FileOutputStream fos = new FileOutputStream("result.pdf")) {
-            fos.write(b64d.decode(result.getFileB64()));
-         }
- 
-        return "result.pdf";
+        if (System.getenv("OVERRIDE_WITH_HTML") != null && System.getenv("OVERRIDE_WITH_HTML").equals("true")) {
+            try (FileOutputStream fos = new FileOutputStream("result.html")) {
+                fos.write(b64d.decode(result.getFileB64()));
+                return "result.html";
+            }
+        } else {
+            try (FileOutputStream fos = new FileOutputStream("result.pdf")) {
+                fos.write(b64d.decode(result.getFileB64()));
+                return "result.pdf";
+            }
+        }
+
     }
     public Boolean getPrintable(String firstName, String lastName) {
         ResponseBean input = get(firstName, lastName).get(0);
@@ -563,7 +574,7 @@ public class AddressService {
         }
         StringBuilder sb = new StringBuilder();
         int index = 0;
-        
+
         for (String item : set) {
             if(index++ == 0) {
                 sb.append(item);
@@ -572,7 +583,7 @@ public class AddressService {
                 sb.append(item);
             }
         }
-        
+
         RequestBean result = new RequestBean();
         result.setAddress(input.getAddress());
         result.setFirstname(input.getFirstname());
@@ -584,7 +595,7 @@ public class AddressService {
         result.setTitle(input.getTitle());
         result.setWorkEmail(input.getWorkEmail());
         result.setWorkTel(input.getWorkTel());
-        
+
         return this.save(result);
     }
 }

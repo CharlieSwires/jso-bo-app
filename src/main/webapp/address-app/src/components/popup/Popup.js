@@ -98,7 +98,7 @@ class Popup extends React.Component {
         console.log('title=' + this.state.address[0].title)
       }
       myChangeHandlerFirstname = (event) => {
-        this.setState({address:[{ title: this.state.address.title,
+        this.setState({address:[{ title: this.state.address[0].title,
             firstname: event.target.value,
             surname: this.state.address[0].surname,
             address: this.state.address[0].address,

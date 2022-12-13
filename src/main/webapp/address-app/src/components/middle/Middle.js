@@ -165,7 +165,11 @@ updatePrintableItem(forename, surname) {
     a.style.display = 'none';
     a.href = url;
     // the filename you want
-    a.download = 'result.pdf';
+    //if(process.env.OVERRIDE_WITH_HTML==='on'){
+    	a.download = 'result.html';
+    //} else {
+    //	a.download = 'result.pdf';
+    //}
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);

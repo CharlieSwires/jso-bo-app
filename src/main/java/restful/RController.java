@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/AddressEntry")
 public class RController  {
 
+    Logger log = LoggerFactory.getLogger(RController.class);
     @Autowired
     private AddressService service;
     @Autowired
@@ -44,7 +47,10 @@ public class RController  {
     }    
     @PostMapping(path="/print", produces="application/octet-stream", consumes="application/json")
     public synchronized ResponseEntity<Resource> post( @RequestBody RequestBean[] input,HttpServletRequest request) throws IOException, Exception {        
-        return downloadFile(service.print(input), request);
+        String result = service.print(input);
+        log.info("result="+result);
+        log.info("request="+request.toString());
+        return downloadFile(result, request);
     }
     @DeleteMapping(path="/delete/{firstName}/{lastName}", produces="application/json")
     public ResponseEntity<Boolean> delete(@PathVariable("firstName") String firstName,
