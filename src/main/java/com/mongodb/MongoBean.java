@@ -20,13 +20,14 @@ public class MongoBean {
 	public MongoBean() {
 	}
 
-
+	//in the clear
 	@Id
 	private String id;
-	//encrypted
-	private String title;
 	private String firstname;
 	private String surname;
+
+	//encrypted
+	private String title;
 	private String extension;
 	private String aofs;
 	private String station;
