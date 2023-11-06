@@ -158,7 +158,7 @@ class Middle extends Component {
             surname={this.state.surname}
             closePopup={this.closeItem} /> :
           <table width="100%">
-            <thead>{headingLine}</thead>
+            <thead className="orangeHeader">{headingLine}</thead>
             <tbody>{this.state.addresses.map((d, index) => <tr key={index}>
 <td>{d.title}</td>
 <td>{d.firstname}</td>
