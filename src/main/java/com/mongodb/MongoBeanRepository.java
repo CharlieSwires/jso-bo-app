@@ -26,11 +26,11 @@ public interface MongoBeanRepository extends MongoRepository<MongoBean, String>{
 ////	@Query("{ 'firstname' : ?0, 'surname' : ?1 }")
 //	public void deleteByFirstnameSurname(String firstname, String surname);
 	
-    @Query("{ firstname : ?0, surname : ?1 }")
-    public MongoBean findByFirstnameSurname(String firstname, String surname);
-    public List<MongoBean> findBySurnameOrderByFirstname(String surname);
+    @Query("{ firstname : ?0 , surname : ?1 }")
+    public List<MongoBean> findByFirstnameSurname(String firstname, String surname);
+    public List<MongoBean> findBySurname(String surname);
 
-    public List<MongoBean> findByFirstnameOrderBySurname(String firstname);
+    public List<MongoBean> findByFirstname(String firstname);
 
 	
 //	@Query("{ 'name' : { $regex: '?0.*?1.*' } }")

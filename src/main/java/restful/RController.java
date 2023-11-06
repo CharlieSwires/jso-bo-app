@@ -1,10 +1,6 @@
 package restful;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,27 +27,20 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping(path = "/AddressEntry")
+@RequestMapping(path = "/JSOEntry")
 public class RController  {
 
     Logger log = LoggerFactory.getLogger(RController.class);
     @Autowired
-    private AddressService service;
+    private JSOService service;
     @Autowired
     private FileStorageService fileStorageService;
     
     @PostMapping(path="/add", produces="application/json", consumes="application/json")
     public ResponseEntity<Boolean> post( @RequestBody RequestBean input) {
-        
+        log.info(input.toString());
         return new ResponseEntity<Boolean>(service.save(input), HttpStatus.OK);
     }    
-    @PostMapping(path="/print", produces="application/octet-stream", consumes="application/json")
-    public synchronized ResponseEntity<Resource> post( @RequestBody RequestBean[] input,HttpServletRequest request) throws IOException, Exception {        
-        String result = service.print(input);
-        log.info("result="+result);
-        log.info("request="+request.toString());
-        return downloadFile(result, request);
-    }
     @DeleteMapping(path="/delete/{firstName}/{lastName}", produces="application/json")
     public ResponseEntity<Boolean> delete(@PathVariable("firstName") String firstName,
             @PathVariable("lastName") String lastName) {
@@ -82,15 +71,6 @@ public class RController  {
     @GetMapping(path="/getAll", produces="application/json")
     public ResponseEntity<List<ResponseBean>> getAll() throws Exception {
         return new ResponseEntity<List<ResponseBean>>(service.getAll(), HttpStatus.OK);
-    }
-    @GetMapping(path="/getAllArray/{page}", produces="application/json")
-    public ResponseBean2[] getAllArray(@PathVariable("page") Integer page) throws Exception {
-        return service.getAllArray(page);
-    }
-    @GetMapping(path="/updatePrintable/{firstName}/{lastName}", produces="application/json")
-    public Boolean getPrintable(@PathVariable("firstName") String firstName,
-            @PathVariable("lastName") String lastName) throws Exception {
-        return service.getPrintable(firstName, lastName);
     }
     @GetMapping(path="/loadAll", produces="application/json")
     public synchronized ResponseEntity<Boolean> loadAll() throws Exception {
