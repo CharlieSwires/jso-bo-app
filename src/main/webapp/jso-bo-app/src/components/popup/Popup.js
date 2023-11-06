@@ -779,6 +779,7 @@ return (
 
 <tr><td></td>
 <td></td>
+<td></td>
 <td><button align="right" onClick={this.props.closePopup}>Cancel</button> 
 <button align="right" onClick={this.save} disabled=
 {!this.state.address[0].firstname || !this.state.address[0].surname}>Save</button>  </td>
