@@ -4,11 +4,16 @@
 tr:nth-child(even) {
   background-color: black;
 }
-
 tr:nth-child(odd) {
   background-color: orange;
 } 
-th, td {
+th{
+  background-color: black;
+  border: 1px solid #d00;
+  padding: 8px;
+  text-align: left;
+}
+td {
   border: 1px solid #d00;
   padding: 8px;
   text-align: left;
@@ -52,3 +57,8 @@ th, td {
     background-color: orange;
     color: white; /* Optionally, set text color to white for better contrast */
   }
+ .blackHeader {
+    background-color: black;
+    color: white; /* Optionally, set text color to white for better contrast */
+  }
+  

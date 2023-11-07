@@ -54,4 +54,8 @@ th, td {
     background-color: orange;
     color: white; /* Optionally, set text color to white for better contrast */
   }
-  
+ .blackHeader {
+    background-color: black;
+    color: white; /* Optionally, set text color to white for better contrast */
+  }
+   

@@ -716,14 +716,14 @@ class Popup extends React.Component {
 return (  
 <div className='popup'>  
 <div align="center" className='popup\_inner'>  
-<h1><span align="center">{this.props.text}</span></h1>  
-<table border="2px" width="50%"><thead><tr className="orangeHeader"><th>Title</th><th>Firstname</th><th>Surname</th><th></th></tr></thead>
+<h1><span align="center" className="orangeHeader">{this.props.text}</span></h1>  
+<table border="2px" width="50%"><thead><tr><th>Title</th><th>Firstname</th><th>Surname</th><th></th></tr></thead>
 <tbody><tr><td><input type="text" defaultValue={this.state.address[0].title} onChange={this.myChangeHandlerTitle}></input></td>
 <td><input type="text" defaultValue={this.state.address[0].firstname} onChange={this.myChangeHandlerFirstname}></input></td>
 <td><input type="text" defaultValue={this.state.address[0].surname} onChange={this.myChangeHandlerSurname}></input></td>
 <td></td>
 </tr>
-<tr><th>Extension</th><th>aofs</th><th>Station</th><td></td></tr>
+<tr><th>Extension</th><th>aofs</th><th>Station</th><th></th></tr>
 <tr>
 <td><input type="text" defaultValue={this.state.address[0].extension} onChange={this.myChangeHandlerExtension}></input></td>
 <td><input type="text" defaultValue={this.state.address[0].aofs} onChange={this.myChangeHandlerAofs}></input></td>
