@@ -58,4 +58,18 @@ th, td {
     background-color: black;
     color: white; /* Optionally, set text color to white for better contrast */
   }
-   
+input[type="text"] {
+  width: 200px; /* Optional: Set the width */
+  font-size: 2em; /* Make the font size two times the default size */
+  border: 1px solid #ccc; /* Optional border for styling */
+  border-radius: 10px; /* Optional rounded corners */
+  padding: 5px; /* Add some padding for space */
+}
+button {
+  font-size: 2em; /* Make the font size two times the default size */
+  width: 200px; /* Twice as wide as the default size */
+  height: 50px; /* Twice as tall as the default size */
+  border: 1px solid #ccc; /* Optional border for styling */
+  border-radius: 10px; /* Rounded corners */
+  padding: 5px; /* Add some padding for space */
+}
