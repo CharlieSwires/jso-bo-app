@@ -2,8 +2,17 @@
     text-align: center;
   }
 tr:nth-child(even) {
-  background-color: #727272;
-}  
+  background-color: black;
+}
+
+tr:nth-child(odd) {
+  background-color: orange;
+} 
+th, td {
+  border: 1px solid #d00;
+  padding: 8px;
+  text-align: left;
+}
   .App-logo {
     height: 40vmin;
     pointer-events: none;
@@ -43,4 +52,3 @@ tr:nth-child(even) {
     background-color: orange;
     color: white; /* Optionally, set text color to white for better contrast */
   }
-  
