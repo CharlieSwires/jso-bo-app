@@ -23,6 +23,8 @@ import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import encryption.Encryption;
 /**
  * Copyright 2021 Charles Swires All Rights Reserved
  * @author charl
@@ -189,6 +191,7 @@ public class Encryption {
 		}
 		return sb.toString();
 	}
+
 	public static byte[] hexStringToByteArray(String hexString) {
 		// Remove any leading "0x" or "0X" prefix if present
 		hexString = hexString.replaceFirst("0x", "").replaceFirst("0X", "");
