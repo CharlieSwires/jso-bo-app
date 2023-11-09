@@ -24,7 +24,6 @@ import org.bouncycastle.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import encryption.Encryption;
 /**
  * Copyright 2021 Charles Swires All Rights Reserved
  * @author charl
@@ -217,11 +216,6 @@ public class Encryption {
 		return byteArray;
 	}
 
-	public static void main(String [] args) {
-		String [] result = Encryption.generate();
-		System.out.println("Private="+result[Encryption.PRIVATE]);
-		System.out.println("Public="+result[Encryption.PUBLIC]);
-	}
 	public static String decryptHex(String privateKeyString, String encryptedData) {
 		String outputData = "";
 		try {
@@ -284,6 +278,11 @@ public class Encryption {
 		}
 
 		return encryptedData;	
+	}
+	public static void main(String [] args) {
+		String [] result = Encryption.generate();
+		System.out.println("Private="+result[Encryption.PRIVATE]);
+		System.out.println("Public="+result[Encryption.PUBLIC]);
 	}
 }
 
